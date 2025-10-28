@@ -3,28 +3,38 @@ using System.Net.Sockets;
 using System.Text;
 
 var ipEndPoint = new IPEndPoint(IPAddress.Any, 8080);
-TcpListener listener = new(ipEndPoint);
+TcpListener server = new(ipEndPoint);
 
 try
 {
-    listener.Start();
+    // Init the underlying socket, binding to local endpoint and listens for incoming requests to port 8080
+    server.Start();
 
-    TcpClient handler = await listener.AcceptTcpClientAsync();
-    await using NetworkStream stream = handler.GetStream();
-
+    // Buffer to hold data from incoming requests
     byte[] byteBuffer = new byte[1024];
-    int bytesRead = await stream.ReadAsync(byteBuffer);
 
-    var msg = Encoding.UTF8.GetString(byteBuffer, 0, bytesRead);
-    Console.WriteLine(msg);
+    while (true) // Enter listening loop
+    {
+        // Wait until a client sends a request
+        TcpClient tcpClient = await server.AcceptTcpClientAsync();
 
-    // var message = $"{DateTime.Now}";
-    // var dateTimeBytes = Encoding.UTF8.GetBytes(message);
+        // The stream is used to send & receive data
+        await using NetworkStream stream = tcpClient.GetStream();
 
-    // await stream.WriteAsync(dateTimeBytes);
-    // Console.WriteLine($"Sent message: \"{message}\"");
+        // Since a client has connected, we can start reading the incoming stream of data
+        //  If the incoming msg is > 1024 bytes then we have to process the data incrementally.
+        int bytesRead;
+
+        //  ReadAsync will only return 0, if zero bytes were requested or the socket performed a graceful shutdown
+        while ((bytesRead = await stream.ReadAsync(byteBuffer)) > 0)
+        {
+            // Get the string from the byte buffer. Read from the start of the buffer to however many bytes were read
+            var msg = Encoding.UTF8.GetString(byteBuffer, 0, bytesRead);
+            Console.WriteLine(msg);
+        }
+    }
 }
 finally
 {
-    listener.Stop();
+    server.Stop();
 }

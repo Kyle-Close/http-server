@@ -12,3 +12,4 @@
 /home/kyle/repos/http/server/obj/Debug/net9.0/server.pdb
 /home/kyle/repos/http/server/obj/Debug/net9.0/server.genruntimeconfig.cache
 /home/kyle/repos/http/server/obj/Debug/net9.0/ref/server.dll
+/home/kyle/repos/http/server/obj/Debug/net9.0/server.sourcelink.json
