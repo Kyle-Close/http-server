@@ -1,0 +1,14 @@
+/home/kyle/repos/http/server/bin/Debug/net9.0/server
+/home/kyle/repos/http/server/bin/Debug/net9.0/server.deps.json
+/home/kyle/repos/http/server/bin/Debug/net9.0/server.runtimeconfig.json
+/home/kyle/repos/http/server/bin/Debug/net9.0/server.dll
+/home/kyle/repos/http/server/bin/Debug/net9.0/server.pdb
+/home/kyle/repos/http/server/obj/Debug/net9.0/server.GeneratedMSBuildEditorConfig.editorconfig
+/home/kyle/repos/http/server/obj/Debug/net9.0/server.AssemblyInfoInputs.cache
+/home/kyle/repos/http/server/obj/Debug/net9.0/server.AssemblyInfo.cs
+/home/kyle/repos/http/server/obj/Debug/net9.0/server.csproj.CoreCompileInputs.cache
+/home/kyle/repos/http/server/obj/Debug/net9.0/server.dll
+/home/kyle/repos/http/server/obj/Debug/net9.0/refint/server.dll
+/home/kyle/repos/http/server/obj/Debug/net9.0/server.pdb
+/home/kyle/repos/http/server/obj/Debug/net9.0/server.genruntimeconfig.cache
+/home/kyle/repos/http/server/obj/Debug/net9.0/ref/server.dll
