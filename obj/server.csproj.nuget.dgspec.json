@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/Users/kyleclose/Repos/http/http-server/server.csproj": {}
+    "/home/kyle/repos/http/server/server.csproj": {}
   },
   "projects": {
-    "/Users/kyleclose/Repos/http/http-server/server.csproj": {
+    "/home/kyle/repos/http/server/server.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/kyleclose/Repos/http/http-server/server.csproj",
+        "projectUniqueName": "/home/kyle/repos/http/server/server.csproj",
         "projectName": "server",
-        "projectPath": "/Users/kyleclose/Repos/http/http-server/server.csproj",
-        "packagesPath": "/Users/kyleclose/.nuget/packages/",
-        "outputPath": "/Users/kyleclose/Repos/http/http-server/obj/",
+        "projectPath": "/home/kyle/repos/http/server/server.csproj",
+        "packagesPath": "/home/kyle/.nuget/packages/",
+        "outputPath": "/home/kyle/repos/http/server/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/kyleclose/.nuget/NuGet/NuGet.Config"
+          "/home/kyle/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
@@ -38,7 +38,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.300"
+        "SdkAnalysisLevel": "9.0.100"
       },
       "frameworks": {
         "net9.0": {
@@ -54,12 +54,18 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[9.0.9, 9.0.9]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.306/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/9.0.110/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

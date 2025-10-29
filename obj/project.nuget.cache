@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "mH99cGSAp7U=",
+  "dgSpecHash": "Mz1WBdv7BEk=",
   "success": true,
-  "projectFilePath": "/Users/kyleclose/Repos/http/http-server/server.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "/home/kyle/repos/http/server/server.csproj",
+  "expectedPackageFiles": [
+    "/home/kyle/.nuget/packages/microsoft.aspnetcore.app.ref/9.0.9/microsoft.aspnetcore.app.ref.9.0.9.nupkg.sha512"
+  ],
   "logs": []
 }

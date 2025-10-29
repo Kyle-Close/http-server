@@ -24,33 +24,30 @@ try
         // Since a client has connected, we can start reading the incoming stream of data
         //  If the incoming msg is > 1024 bytes then we have to process the data incrementally.
         int bytesRead;
-        string headerStr = "";
+        List<string> header = [];
 
         //  ReadAsync will only return 0, if zero bytes were requested or the socket performed a graceful shutdown
         while ((bytesRead = await stream.ReadAsync(byteBuffer)) > 0)
         {
             // Get the string from the byte buffer. Read from the start of the buffer to however many bytes were read
             string msg = Encoding.UTF8.GetString(byteBuffer, 0, bytesRead);
-
-            // If any line is blank, that signifies we reached the end of the header section
             string[] lines = msg.Split('\n');
 
             for (int i = 0; i < lines.Length; i++)
             {
+                // If any line is blank, that signifies we reached the end of the header section
                 if (string.IsNullOrWhiteSpace(lines[i]))
                 {
-                    Console.WriteLine("Found the end of header segment.");
+                    RequestLine rqLine = Parse.ParseRequestLine(header[0]);
+                    var headers = Parse.ParseHeaders(header);
                     break;
                 }
                 else
                 {
-                    headerStr += lines[i];
+                    header.Add(lines[i]);
                 }
             }
         }
-
-        // At this point the connection has been closed.
-        Console.WriteLine(headerStr);
     }
 }
 finally
