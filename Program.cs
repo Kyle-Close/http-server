@@ -24,7 +24,7 @@ try
         // Since a client has connected, we can start reading the incoming stream of data
         //  If the incoming msg is > 1024 bytes then we have to process the data incrementally.
         int bytesRead;
-        List<string> header = [];
+        List<string> headerLines = [];
 
         //  ReadAsync will only return 0, if zero bytes were requested or the socket performed a graceful shutdown
         while ((bytesRead = await stream.ReadAsync(byteBuffer)) > 0)
@@ -38,13 +38,44 @@ try
                 // If any line is blank, that signifies we reached the end of the header section
                 if (string.IsNullOrWhiteSpace(lines[i]))
                 {
-                    RequestLine rqLine = Parse.ParseRequestLine(header[0]);
-                    var headers = Parse.ParseHeaders(header);
+                    RequestLine rqLine = Parse.ParseRequestLine(headerLines[0]);
+                    var headers = Parse.ParseHeaders(headerLines);
+
+                    // Body is present
+                    if (headers.ContainsKey("Content-Length"))
+                    {
+                        string body = "";
+                        int bodyBytesRead = 0;
+                        int bodyByteLength = int.Parse(headers["Content-Length"]);
+
+                        // We have to read that amount of bytes in
+                        // 1. Read remaining lines that come after the blank new line (if any)
+                        // 2. Continue reading from the stream until we reach the end of the body (indicated by how many bytes)
+                        for (int j = i + 1; j < lines.Length; j++)
+                        {
+                            body += lines[j];
+                            bodyBytesRead = Encoding.UTF8.GetByteCount(body);
+                        }
+
+                        while ((bytesRead = await stream.ReadAsync(byteBuffer)) > 0 && bodyBytesRead < bodyByteLength)
+                        {
+                            msg = Encoding.UTF8.GetString(byteBuffer, 0, bytesRead);
+                            body += msg;
+                            bodyBytesRead = Encoding.UTF8.GetByteCount(body);
+                            if (bodyBytesRead >= bodyByteLength)
+                            {
+                                break;
+                            }
+                        }
+
+                        Console.WriteLine(body);
+                    }
+
                     break;
                 }
                 else
                 {
-                    header.Add(lines[i]);
+                    headerLines.Add(lines[i]);
                 }
             }
         }
