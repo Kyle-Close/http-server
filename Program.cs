@@ -24,14 +24,17 @@ try
         // Since a client has connected, we can start reading the incoming stream of data
         //  If the incoming msg is > 1024 bytes then we have to process the data incrementally.
         int bytesRead;
+        string fullMessage = "";
 
         //  ReadAsync will only return 0, if zero bytes were requested or the socket performed a graceful shutdown
         while ((bytesRead = await stream.ReadAsync(byteBuffer)) > 0)
         {
             // Get the string from the byte buffer. Read from the start of the buffer to however many bytes were read
             var msg = Encoding.UTF8.GetString(byteBuffer, 0, bytesRead);
-            Console.WriteLine(msg);
+            fullMessage += msg;
         }
+
+        Console.WriteLine(fullMessage);
     }
 }
 finally
